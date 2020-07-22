@@ -13,3 +13,21 @@ task:
     - ./tinyrust
     - test "$(./tinyrust)" == 'Hello!'
     - test "$(wc -c < tinyrust)" -eq 137
+
+task:
+  name: FreeBSD amd64 nightly
+  freebsd_instance:
+    image: freebsd-12-1-release-amd64
+    cpu: 1
+    memory: 1
+  setup_script:
+    - pkg install -y curl bash git nasm
+    - curl https://sh.rustup.rs -sSf --output rustup.sh
+    - sh rustup.sh --default-toolchain nightly --profile minimal -y
+  build_script:
+    - . $HOME/.cargo/env
+    - ./build.sh
+  test_script:
+    - ./tinyrust
+    - test `./tinyrust` == 'Hello!'
+    - wc -c ./tinyrust
