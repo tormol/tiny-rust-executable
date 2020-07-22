@@ -18,3 +18,24 @@ task:
     - test "$(wc -c < tinyrust)" -eq 137
   before_cache_script:
     - rm -rf $HOME/.cargo/registry/index
+
+task:
+  name: Linux i686 nightly
+  container:
+    image: rustlang/rust:nightly
+    cpu: 1
+    memory: 1
+  cargo_cache:
+    folder: $HOME/.cargo/registry
+    fingerprint_script: cat Cargo.lock 2> /dev/null || true
+  setup_script:
+    - apt-get update
+    - apt-get install -yqq gcc gcc-multilib linux-libc-dev nasm bsdmainutils
+    - rustup target add i686-unknown-linux-gnu
+  build_script:
+    - ./build.sh --target i686-unknown-linux-gnu
+  test_script:
+    - ./tinyrust
+    - test "$(./tinyrust)" == 'Hello!'
+  before_cache_script:
+    - rm -rf $HOME/.cargo/registry/index
