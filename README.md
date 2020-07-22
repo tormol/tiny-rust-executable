@@ -44,7 +44,7 @@ Disassembly of section .text.main:
   17:	0f 0b                	ud2    
 + echo
 
-+ ld --gc-sections -e main -T script.ld -o payload tinyrust.tinyrust.3a1fbbbh-cgu.0.rcgu.o
++ ld --gc-sections -e main -T script.ld -o payload tinyrust.tinyrust.3a1fbbbh-cgu.0.rcgu.o --no-check-sections
 + objcopy -j combined -O binary payload payload.bin
 ++ nm --format=posix payload
 ++ grep '^main '

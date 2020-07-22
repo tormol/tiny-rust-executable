@@ -32,7 +32,7 @@ ar x libtinyrust.rlib "$OBJECT"
 objdump -dr "$OBJECT"
 echo
 
-ld --gc-sections -e main -T script.ld -o payload "$OBJECT"
+ld --gc-sections -e main -T script.ld -o payload "$OBJECT" --no-check-sections
 objcopy -j combined -O binary payload payload.bin
 
 ENTRY=$(nm --format=posix payload | grep '^main ' | awk '{print $3}')
