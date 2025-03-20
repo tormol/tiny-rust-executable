@@ -6,7 +6,7 @@ for d in rustc cargo ar ld objcopy nasm hexdump; do
     which $d >/dev/null || (echo "Can't find $d, needed to build"; exit 1)
 done
 
-printf "Tested on rustc 1.46.0-nightly (346aec9b0 2020-07-11)\nYou have  "
+printf "Tested on rustc 1.85.0 (4d91de4e4 2025-02-17)\nYou have  "
 rustc --version
 echo
 
